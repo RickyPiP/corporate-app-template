@@ -1,7 +1,7 @@
 import React from "react";
 import tw from "twin.macro";
-import { PricingButton } from "./PricingButton";
-import PricingCardListItem from "./PricingCardListItem";
+import { PricingButton } from "./pricing-button";
+import PricingCardListItem from "./pricing-card-list-item";
 
 /** @jsxImportSource @emotion/react */
 
@@ -12,8 +12,8 @@ type PricingCardProps = {
 
 const PricingCard = ({ title, price }: PricingCardProps) => {
   return (
-    <div tw="mx-12 mb-5  max-w-sm mx-auto resize-none flex-grow-0 flex-shrink-0 lg:-mx-3 lg:z-0">
-      <div tw="bg-white rounded-lg relative">
+    <div tw="mx-12 lg:mx-0 mb-5  max-w-sm mx-auto resize-none  flex-shrink-0 lg:-mx-6 ">
+      <div tw="bg-white rounded-lg relative lg:w-[340px]">
         <div tw="mb-5 pb-10 py-4">
           <h3
             tw="text-center text-2xl font-medium text-gray-900"

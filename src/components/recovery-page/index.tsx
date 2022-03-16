@@ -18,14 +18,19 @@ const Recovery = () => {
     e.preventDefault();
 
     const search = async () => {
-      const { data }: any = await axios
+      await axios
         .post("http://35.233.55.158:7350/v1/auth/recover", {
           email: email,
         })
         .then(res => {
+          axios.post("http://35.233.55.158:7350/v1/auth/verify", {
+            type: "recovery",
+            token: res.data.recovery_token,
+          });
           setToken(res.data.recovery_token);
           setError("");
         })
+        // aici o sa bagi ce-o zis popa
         .catch(function (error) {
           if (error.response) {
             setError(error.response.data.details[0].message);

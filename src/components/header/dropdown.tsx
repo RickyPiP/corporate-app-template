@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback, useContext } from "react";
 /** @jsxImportSource @emotion/react */
 import tw from "twin.macro";
 import { Link } from "react-router-dom";
@@ -6,6 +6,7 @@ import { click } from "@testing-library/user-event/dist/click";
 import useDropdown from "../../hooks/usePopups";
 import { LinkData } from "../../assets/data";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import { AuthContext } from "../../context/auth-context";
 
 type DropdownProps = {
   isOpen: any;
@@ -18,6 +19,7 @@ export const Dropdown = ({
   toggleDropdown,
   closeDropdown,
 }: DropdownProps) => {
+  const { setIsModalOpen, auth, setAuth } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
   useOutsideClick(
     ref,
@@ -80,13 +82,29 @@ export const Dropdown = ({
           </div>
         </div>
         <div tw="px-2 pt-2 pb-3 space-y-1 ">{Links}</div>
-        <a
-          href="#"
-          tw="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
-        >
-          {" "}
-          Log in{" "}
-        </a>
+        {!auth ? (
+          <div
+            onClick={() => {
+              setIsModalOpen(true);
+              toggleDropdown();
+            }}
+            tw="block w-full px-5 py-3 text-center hover:cursor-pointer font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
+          >
+            {" "}
+            Log in{" "}
+          </div>
+        ) : (
+          <div
+            onClick={() => {
+              setAuth("");
+              toggleDropdown();
+            }}
+            tw="block w-full px-5 py-3 text-center hover:cursor-pointer font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
+          >
+            {" "}
+            Log out{" "}
+          </div>
+        )}
       </div>
     </div>
   );

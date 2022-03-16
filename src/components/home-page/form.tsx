@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import tw from "twin.macro";
 import { PurpleButton } from "../purple-button";
 import FormIcon from "./form-icon";
@@ -7,8 +7,10 @@ import Input from "./input";
 /** @jsxImportSource @emotion/react */
 import axios from "axios";
 import AlertMessage from "../../helper-functions/alert-message";
+import { AuthContext } from "../../context/auth-context";
 
 const HomepageForm = () => {
+  const { setAuth, auth } = useContext(AuthContext);
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -21,22 +23,25 @@ const HomepageForm = () => {
     e.preventDefault();
 
     const search = async () => {
-      const { data }: any = await axios
+      await axios
         .post("http://35.233.55.158:7350/v1/auth/signup", {
           email: user.email,
           password: user.password,
           password_confirmation: user.confirmPass,
         })
         .then(res => {
-          const response = axios.post(
-            "http://35.233.55.158:7350/v1/auth/verify",
-            {
+          axios
+            .post("http://35.233.55.158:7350/v1/auth/verify", {
               type: "signup",
               token: res.data.confirmation_token,
-            }
-          );
+            })
+            .then(response => {
+              setAuth(response.data.access_token);
+            });
           setErrorPresent("");
           setCreateSuccess(true);
+
+          // setAuth(res.data.confirmation_token);
         })
 
         //console.log(response)
@@ -47,8 +52,6 @@ const HomepageForm = () => {
             console.log(error.request);
           }
         });
-
-      // console.log(data);
     };
     search();
   };
@@ -98,12 +101,7 @@ const HomepageForm = () => {
           </div>
           <PurpleButton tw="mb-5">Create your account</PurpleButton>
 
-          {AlertMessage(
-            errorPresent,
-            "Cannot create account",
-            createSuccess,
-            "Created account successfully, please log in."
-          )}
+          {AlertMessage(errorPresent, "Cannot create account")}
         </form>
       </div>
       <div tw="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 sm:rounded-b-lg">

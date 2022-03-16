@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import tw from "twin.macro";
 /** @jsxImportSource @emotion/react */
-
+import { useContext } from "react";
 import { AuthContext } from "../context/auth-context";
 
 export const AccessBtn = ({ handleClick, text }: any) => {

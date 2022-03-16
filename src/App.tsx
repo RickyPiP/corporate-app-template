@@ -20,7 +20,7 @@ function App() {
   const [isDropdownOpen, toggleDropdown, setClose] = usePopups();
   const [isModalOpen, setIsModalOpen, closeModal] = usePopups();
   const [auth, setAuth] = useState<any>("");
-  const [rememberMe, setRememberMe] = useState(null);
+  const [rememberMe, setRememberMe] = useState<any>(false);
   const value: any = {
     auth,
     setAuth,

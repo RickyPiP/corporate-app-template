@@ -1,7 +1,7 @@
 import React from "react";
 import tw from "twin.macro";
-import { PricingButton } from "./PricingButton";
-import PricingCardListItem from "./PricingCardListItem";
+import { PricingButton } from "./pricing-button";
+import PricingCardListItem from "./pricing-card-list-item";
 
 /** @jsxImportSource @emotion/react */
 

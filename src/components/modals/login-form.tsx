@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 /** @jsxImportSource @emotion/react */
 import tw from "twin.macro";
 import Input from "../home-page/input";
@@ -13,14 +13,14 @@ const LoginForm = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState<any>();
-  const { setAuth, setIsModalOpen, rememberMe, setRememberMe }: any =
+  const { auth, setAuth, setIsModalOpen, rememberMe, setRememberMe }: any =
     useContext(AuthContext);
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const search = async () => {
-      const { data }: any = await axios
+      await axios
         .post("http://35.233.55.158:7350/v1/auth/token", {
           email: email,
           password: password,
@@ -42,6 +42,7 @@ const LoginForm = () => {
   };
 
   const handleChange = (e: any) => {
+    localStorage.setItem("check", JSON.stringify(e.target.checked));
     setRememberMe(e.target.checked);
   };
 
