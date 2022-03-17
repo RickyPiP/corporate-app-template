@@ -16,7 +16,10 @@
     "react-router-dom": "6",
     "react-scripts": "5.0.0",
     "typescript": "^4.6.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "twin.macro": "^2.8.2",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1"
   },
   "babelMacros": {
     "twin": {

@@ -19,7 +19,7 @@ export const Dropdown = ({
   toggleDropdown,
   closeDropdown,
 }: DropdownProps) => {
-  const { setIsModalOpen, auth, setAuth } = useContext(AuthContext);
+  const { setIsModalOpen, auth, setAuth }: any = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
   useOutsideClick(
     ref,
